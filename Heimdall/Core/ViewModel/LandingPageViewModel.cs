@@ -8,18 +8,29 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Heimdall.Core.Model;
 using Heimdall.Core.ViewModel;
-using Heimdall.Core.Command;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Heimdall.Core.ViewModel
 {
     public class LandingPageViewModel : ViewModelBase
     {
+        private ICommand _submitInputCommand;
         private LandingPageModel _LandingPageModel;
         public string _textInput = "What are we watching today?";
 
         public LandingPageViewModel()
         {
             _LandingPageModel = new LandingPageModel();
+            MessengerInstance.Register<NotificationMessage<string>>(this, m =>
+            {
+                if (m.Notification.Equals("LandingPageViewModel")) DoNothing(m.Content);
+            });
+        }
+
+        private void DoNothing(string message)
+        {
         }
 
         public BitmapImage ImageBackground
@@ -33,7 +44,19 @@ namespace Heimdall.Core.ViewModel
             set
             {
                 _textInput = value;
-                OnPropertyChanged("TextInput");
+                RaisePropertyChanged("TextInput");
+            }
+        }
+
+        public ICommand SubmitInputCommand
+        {
+            get
+            {
+                return _submitInputCommand ?? (_submitInputCommand = new RelayCommand(() =>
+                {
+                    MessengerInstance.Send(new NotificationMessage<string>(TextInput, "GoToResults"));
+                }
+                ));
             }
         }
     }

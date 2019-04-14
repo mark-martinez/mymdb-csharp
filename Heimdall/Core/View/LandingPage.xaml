@@ -22,8 +22,7 @@
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          Foreground="White" FontFamily="Pacifico">
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding DataContext.ChangePageCommand, 
-                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                    <KeyBinding Command="{Binding SubmitInputCommand}"
                                 CommandParameter="{Binding TextInput}"
                                 Key="Enter" />
                 </TextBox.InputBindings>

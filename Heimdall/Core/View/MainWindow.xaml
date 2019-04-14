@@ -9,11 +9,8 @@
         Title="Heimdall" 
         x:Name="MainWindowView"
         WindowState="Maximized" 
-        WindowStyle="None">
-
-    <Window.DataContext>
-        <src:MainWindowViewModel />
-    </Window.DataContext>
+        WindowStyle="None"
+        DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type src:LandingPageViewModel}">
@@ -21,6 +18,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type src:ResultsViewModel}">
             <local:Results />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type src:ResultListingViewModel}">
+            <local:ResultListing />
         </DataTemplate>
     </Window.Resources>
     

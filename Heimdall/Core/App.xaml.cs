@@ -16,15 +16,20 @@ namespace Heimdall.Core
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+
+        void App_StartUp(object sender, StartupEventArgs e)
         {
-            base.OnStartup(e);
             Application.Current.Resources.Add("Configuration", Configuration.Instance);
             //this.StartupUri = new Uri("Core/View/MainWindow.xaml", UriKind.RelativeOrAbsolute);
             MainWindow mw = new MainWindow();
             MainWindowViewModel vm = new MainWindowViewModel();
             mw.DataContext = vm;
             mw.Show();
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+
         }
     }
 }
