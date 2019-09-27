@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Heimdall.API;
-using Heimdall.Core.Model;
+using MyMDB.Core.API;
+using MyMDB.Core.Model;
 
-namespace Heimdall.Core
+namespace MyMDB.Core.API
 {
     public class APICaller
     {
@@ -24,12 +24,11 @@ namespace Heimdall.Core
             string apiResponse = "";
             try
             {
-                using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
-                {
-                    StreamReader reader = new StreamReader(response.GetResponseStream());
-                    apiResponse = reader.ReadToEnd();
-                }
+                using HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse;
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                apiResponse = reader.ReadToEnd();
             } catch (WebException e) {
+                Console.WriteLine("API call FAIL");
                 return "";
             }
             return apiResponse;

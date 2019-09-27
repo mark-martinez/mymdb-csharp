@@ -1,12 +1,12 @@
-﻿using Heimdall.Core;
+﻿using MyMDB.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Heimdall.Core.Model;
+using MyMDB.Core.Model;
 
-namespace Heimdall.API
+namespace MyMDB.Core.API
 {
     public sealed class Configuration
     {

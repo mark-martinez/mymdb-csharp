@@ -1,4 +1,4 @@
-﻿using Heimdall.Core.View;
+﻿using MyMDB.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Heimdall.Core.ViewModel;
+using MyMDB.Core.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.CommandWpf;
+using MyMDB.Core.DB;
 
-namespace Heimdall.Core.ViewModel
+namespace MyMDB.Core.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
@@ -91,13 +92,6 @@ namespace Heimdall.Core.ViewModel
                     CurrentViewModel = _ViewModels.FirstOrDefault(vm => vm is LandingPageViewModel);
                     break;
             }
-
-            _ViewModels.ForEach(delegate (ViewModelBase s)
-            {
-                Console.WriteLine(s.ToString());
-            });
-            Console.WriteLine("break");
-
         }
     }
 }

@@ -13,15 +13,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Heimdall.Core.Model;
-using Heimdall.Core.ViewModel;
+using MahApps.Metro.Controls;
+using MyMDB.Core.Model;
+using MyMDB.Core.ViewModel;
 
-namespace Heimdall.Core.View
+namespace MyMDB.Core.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {

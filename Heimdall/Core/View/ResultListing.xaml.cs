@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyMDB.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Heimdall.Core.View
+namespace MyMDB.Core.View
 {
     /// <summary>
     /// Interaction logic for ResultListing.xaml
     /// </summary>
     public partial class ResultListing : UserControl
     {
-        public ResultListing()
+        public ResultListing(Media media)
         {
             InitializeComponent();
+            this.DataContext = media;
         }
     }
 }

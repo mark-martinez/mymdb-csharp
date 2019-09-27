@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Heimdall.Core.View
+namespace MyMDB.Core.View
 {
     /// <summary>
     /// Interaction logic for LandingPage.xaml
@@ -33,8 +33,9 @@ namespace Heimdall.Core.View
 
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            this.TextMain.Text = string.Empty;
-            this.TextMain.GotFocus -= TextBox_GotFocus;
+            TextBox box = (TextBox)sender;
+            box.Text = string.Empty;
+            box.GotFocus -= TextBox_GotFocus;
         }
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Heimdall.Core.Model;
-using Heimdall.Core.ViewModel;
+using MyMDB.Core.Model;
+using MyMDB.Core.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 
-namespace Heimdall.Core.ViewModel
+namespace MyMDB.Core.ViewModel
 {
     public class LandingPageViewModel : ViewModelBase
     {

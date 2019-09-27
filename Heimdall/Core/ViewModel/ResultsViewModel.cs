@@ -1,97 +1,85 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Heimdall.Core.Model;
-using Newtonsoft.Json;
-using System;
+using MyMDB.Core.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
+using MyMDB.Core.DB;
+using MyMDB.Core.View;
+using System;
+using System.Windows.Controls;
 
-namespace Heimdall.Core.ViewModel
+namespace MyMDB.Core.ViewModel
 {
     public class ResultsViewModel : ViewModelBase
     {
-        private ObservableCollection<Result> _listResults;
-        private BitmapImage _background;
         private ICommand _submitInputCommand;
-        private ResultsModel _resultsModel;
+        private ICommand _selectItemCommand;
+        private ResultsReader _resultsReader;
+        private ObservableCollection<ResultListing> _resultsList;
 
         public ResultsViewModel()
         {
-            _resultsModel = new ResultsModel();
-
+            _resultsReader = new ResultsReader();
+            
             MessengerInstance.Register<NotificationMessage<string>>(this, m =>
             {
-                if (m.Notification.Equals("ResultsViewModel")) MessageHandle(m.Content);                
+                if (m.Notification.Equals("ResultsViewModel"))
+                {
+                    _resultsList = new ObservableCollection<ResultListing>();
+                    _resultsReader.current_query = m.Content;
+                    _resultsReader.Results.results.ForEach(delegate (Media s)
+                    {
+                        _resultsList.Add(new ResultListing(s));
+                    });
+                }                
             });
         }
 
-        public ObservableCollection<Result> ListResults
+        public ObservableCollection<ResultListing> ResultsList
         {
             get
             {
-                if (_listResults == null)
-                    _listResults = new ObservableCollection<Result>();
-                return _listResults;
+                if (_resultsList == null)
+                    _resultsList = new ObservableCollection<ResultListing>();
+                return _resultsList;
             }
         }
 
-        private void MessageHandle(string message)
-        {
-            //validate input
-            CallToApi(message);
-        }
-
-        public BitmapImage ImageBackground
-        {
-            get { return _background; }
-            set
-            {
-                _background = value;
-                RaisePropertyChanged("ImageBackground");
-            }
-        }
-
-        /*
-         * make async
-         */
-        private void CallToApi(string query)
-        {
-            try
-            {
-                string response = APICaller.Call("https://api.themoviedb.org/3/search/movie?api_key=1a9755b22a226ad22bb40fc91e9ed04a", "&query=" + query);
-                _resultsModel = JsonConvert.DeserializeObject<ResultsModel>(response);
-                Console.WriteLine("response here: " + response);
-                Console.WriteLine("results model: " + _resultsModel.results.Count);
-
-                ImageBackground = new BitmapImage(new Uri("https://image.tmdb.org/t/p/original/" + _resultsModel.results[0].backdrop_path));
-
-                _resultsModel.results.ForEach(delegate (Result s)
-                {
-                    ListResults.Add(s);
-                });
-                RaisePropertyChanged("ListResults");
-            }
-            catch (JsonReaderException e)
-            {
-                Console.WriteLine(e.StackTrace);
-            }
-        }
-
-        /**
-         * temporary method may not keep here
-         */
         public ICommand ReturnToLanding
         {
             get
             {
                 return _submitInputCommand ?? (_submitInputCommand = new RelayCommand(() =>
                 {
-                    MessengerInstance.Send(new NotificationMessage<string>("SendMeBack", "GoToLanding"));
-                    _resultsModel = null;
-                    ListResults.Clear();
+                    _resultsReader.Results = null;
+                    ResultsList.Clear();
                     RaisePropertyChanged("ListResults");
+                    MessengerInstance.Send(new NotificationMessage<string>("SendMeBack", "GoToLanding"));
+                }
+                ));
+            }
+        }
+
+        public ICommand DatabaseContent
+        {
+            get
+            {
+                return _submitInputCommand ?? (_submitInputCommand = new RelayCommand(() =>
+                {
+                    MongoClient.DisplayContent();
+                }
+                ));
+            }
+        }
+
+        public ICommand ResultClickHandler
+        {
+            get
+            {
+                return _selectItemCommand ?? (_selectItemCommand = new RelayCommand<ResultsViewModel>((data) =>
+                {
+                    Console.WriteLine("here: " + data);
                 }
                 ));
             }

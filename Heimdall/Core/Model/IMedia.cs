@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Heimdall.Core.Model
+namespace MyMDB.Core.Model
 {
     interface IMedia
     {
@@ -18,7 +14,7 @@ namespace Heimdall.Core.Model
         int runtime { get; set; }
         double vote_average { get; set; }
         string release_date { get; set; }
-        List<Genre> genres { get; set; }
+        List<int> genre_ids { get; set; }
         string tagline { get; set; }
         //pulled from omdb
         string Actors { get; set; }     

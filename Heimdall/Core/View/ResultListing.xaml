@@ -1,37 +1,34 @@
-﻿<UserControl x:Class="Heimdall.Core.View.ResultListing"
+﻿<UserControl x:Class="MyMDB.Core.View.ResultListing"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Heimdall.Core.View"
-             xmlns:src="clr-namespace:Heimdall.Core.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="200" HorizontalAlignment="Stretch">
+             d:DesignHeight="200">
 
-    <UserControl.DataContext>
-        <src:ResultListingViewModel/>
-    </UserControl.DataContext>
-    
-    <Grid Background="White" Margin="5">
+    <Grid Background="Black" Margin="5" MaxHeight="200">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-            <Label Content="{Binding Title}" FontSize="32"/>
-            <Label Content="{Binding Genres}" Padding="0, 28, 0, 0"/>
-        </StackPanel>
-        <StackPanel Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1">
-            <Label Content="{Binding Overview}" ClipToBounds="True"/>
-        </StackPanel>
-        <StackPanel Grid.Column="2" Grid.Row="1">
-            <Label Content="{Binding VoteAverage}"/>
-        </StackPanel>
+        <DockPanel Grid.Row="0">
+            <Label Content="{Binding title}" FontSize="48" Foreground="White"/>
+            <Label Content="{Binding id}" Foreground="Yellow"/>
+            <Label Content="{Binding genre_id}" Foreground="White"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" ClipToBounds="True" Name="container">
+            <Label HorizontalAlignment="Left" FontSize="16" Foreground="White">
+                <TextBlock Text="{Binding overview}" MaxWidth="{Binding ActualWidth, ElementName=container}" MaxHeight="{Binding ActualHeight, ElementName=container}" TextTrimming="CharacterEllipsis"/>
+            </Label>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="2">
+            <Label Content="{Binding vote_average}" FontSize="48" HorizontalAlignment="Right" Foreground="White"/>
+        </DockPanel>
     </Grid>
 </UserControl>

@@ -5,11 +5,12 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Heimdall.API;
-using Heimdall.Core.View;
-using Heimdall.Core.ViewModel;
+using MyMDB.Core.API;
+using MyMDB.Core.DB;
+using MyMDB.Core.View;
+using MyMDB.Core.ViewModel;
 
-namespace Heimdall.Core
+namespace MyMDB.Core
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -19,17 +20,11 @@ namespace Heimdall.Core
 
         void App_StartUp(object sender, StartupEventArgs e)
         {
-            Application.Current.Resources.Add("Configuration", Configuration.Instance);
-            //this.StartupUri = new Uri("Core/View/MainWindow.xaml", UriKind.RelativeOrAbsolute);
-            MainWindow mw = new MainWindow();
-            MainWindowViewModel vm = new MainWindowViewModel();
-            mw.DataContext = vm;
+            MainWindow mw = new MainWindow
+            {
+                DataContext = new MainWindowViewModel()
+            };
             mw.Show();
-        }
-
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-
         }
     }
 }

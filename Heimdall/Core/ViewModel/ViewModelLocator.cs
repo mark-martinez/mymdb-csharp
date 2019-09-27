@@ -1,7 +1,7 @@
 /*
   In App.xaml:
   <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:Heimdall"
+      <vm:ViewModelLocator xmlns:vm="clr-namespace:MyMDB"
                            x:Key="Locator" />
   </Application.Resources>
   
@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using CommonServiceLocator;
 
-namespace Heimdall.Core.ViewModel
+namespace MyMDB.Core.ViewModel
 {
     /// <summary>
     /// This class contains static references to all the view models in the

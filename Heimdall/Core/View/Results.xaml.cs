@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Heimdall.Core.View
+namespace MyMDB.Core.View
 {
     /// <summary>
     /// Interaction logic for Results.xaml

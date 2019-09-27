@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Heimdall.Core.ViewModel
+namespace MyMDB.Core.ViewModel
 {
     public class ActionCommand : ICommand
     {
